@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury360 | Publicar Propiedad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar" aria-label="Navegación principal">
+            <h2 class="logo">Luxury360</h2>
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contacto formulario-tarjeta" aria-labelledby="titulo-propiedad">
+            <h1 id="titulo-propiedad">Publicar Propiedad</h1>
+            <p>Completa los datos del inmueble que deseas anunciar.</p>
+            <form id="formPropiedad" class="formulario">
+                <div class="campo-formulario">
+                    <label for="propTitulo">Título de la propiedad</label>
+                    <input id="propTitulo" name="titulo" type="text" autocomplete="off" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="propUbicacion">Ubicación</label>
+                    <input id="propUbicacion" name="ubicacion" type="text" autocomplete="address-level2" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="propPrecio">Precio (MXN)</label>
+                    <input id="propPrecio" name="precio" type="number" min="1" step="any" required>
+                </div>
+                <button class="boton-formulario" type="submit">Guardar Propiedad</button>
+            </form>
+            <p class="enlace-formulario"><a href="index.html">Regresar a la página principal</a></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

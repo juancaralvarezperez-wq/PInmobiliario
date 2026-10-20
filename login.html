@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury360 | Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar" aria-label="Navegación principal">
+            <h2 class="logo">Luxury360</h2>
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="agregar-propiedad.html">Publicar Propiedad</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contacto formulario-tarjeta" aria-labelledby="titulo-login">
+            <h1 id="titulo-login">Iniciar Sesión</h1>
+            <p>Accede a tu cuenta de Luxury360.</p>
+            <form id="formLogin" class="formulario">
+                <div class="campo-formulario">
+                    <label for="loginEmail">Correo electrónico</label>
+                    <input id="loginEmail" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="loginPassword">Contraseña</label>
+                    <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+                </div>
+                <button class="boton-formulario" type="submit">Iniciar Sesión</button>
+            </form>
+            <p class="enlace-formulario">¿Quieres anunciar un inmueble? <a href="agregar-propiedad.html">Publicar Propiedad</a></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
