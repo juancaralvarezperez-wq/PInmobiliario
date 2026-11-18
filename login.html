@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury360 | Iniciar sesión</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><script src="script.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">L<span>360</span></span><span class="brand-name">Luxury<span>360</span></span></a><a class="top-link" href="index.html">← Volver al inicio</a></header>
+  <main class="auth-layout">
+    <section class="auth-aside"><p class="eyebrow">BIENVENIDO DE NUEVO</p><h1>Tu próximo capítulo comienza en casa.</h1><p>Accede a Luxury360 y continúa explorando oportunidades.</p></section>
+    <section class="auth-card">
+      <p class="eyebrow eyebrow-dark">TU CUENTA LUXURY360</p><h2>Iniciar sesión</h2><p class="form-intro">Ingresa tus datos para acceder.</p>
+      <form id="formLogin" class="formulario" novalidate>
+        <div class="campo-formulario"><label for="loginEmail">Correo electrónico</label><input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required></div>
+        <div class="campo-formulario"><label for="loginPassword">Contraseña</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required minlength="8"></div>
+        <button class="button button-full" type="submit">Iniciar sesión</button>
+        <p class="form-message" id="loginMessage" aria-live="polite"></p>
+      </form>
+      <p class="auth-switch">¿Todavía no tienes cuenta? <a href="registro.html">Crear una cuenta</a></p>
+      <p class="demo-note">Prototipo: las cuentas se guardan únicamente en este navegador. No uses contraseñas reales.</p>
+    </section>
+  </main>
+  <footer class="auth-footer">© <span id="currentYear"></span> Luxury360</footer>
+</body>
+</html>

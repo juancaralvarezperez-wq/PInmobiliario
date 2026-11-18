@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Luxury360: encuentra, compra, renta o publica tu próxima propiedad.">
+  <title>Luxury360 | Inmobiliaria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="script.js" defer></script>
+  <script src="acceso-luxury.js" defer></script>
+
+  <style>
+    [hidden] {
+      display: none !important;
+    }
+
+    #opcionesInvitado:not([hidden]),
+    #opcionesConectado:not([hidden]) {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nombre-usuario {
+      font-family: "DM Sans", sans-serif;
+      font-weight: 700;
+      color: #14263b;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #btnCerrarSesion,
+    #btnCerrarSesionMenu {
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .nombre-usuario {
+        max-width: 95px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="topbar">
+
+    <button
+      class="icon-button menu-toggle"
+      id="openMenu"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="sidebar">
+      <span class="hamburger"></span>
+    </button>
+
+    <a class="brand" href="index.html" aria-label="Luxury360, inicio">
+      <span class="brand-mark">L<span>360</span></span>
+      <span class="brand-name">Luxury<span>360</span></span>
+    </a>
+
+    <nav class="top-actions" aria-label="Acciones de usuario">
+
+      <div id="opcionesInvitado" class="top-actions">
+        <a class="top-link" href="login.html">Iniciar sesión</a>
+        <a class="button button-small" href="registro.html">Crear cuenta</a>
+      </div>
+
+      <div id="opcionesConectado" class="top-actions" hidden>
+        <span class="nombre-usuario" id="nombreUsuario"></span>
+        <button
+          class="button button-small"
+          id="btnCerrarSesion"
+          type="button">
+          Cerrar sesión
+        </button>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- MENÚ LATERAL -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside
+    class="sidebar"
+    id="sidebar"
+    aria-label="Menú principal"
+    aria-hidden="true">
+
+    <div class="sidebar-head">
+
+      <a class="brand brand-sidebar" href="index.html">
+        <span class="brand-mark">L<span>360</span></span>
+        <span class="brand-name">Luxury<span>360</span></span>
+      </a>
+
+      <button
+        class="icon-button close-menu"
+        id="closeMenu"
+        type="button"
+        aria-label="Cerrar menú">×</button>
+
+    </div>
+
+    <p class="sidebar-label">EXPLORA</p>
+
+    <nav class="side-nav">
+      <a href="index.html"><span>⌂</span> Inicio</a>
+      <a href="#renta" data-filter-link="renta">
+        <span>⌂</span> Casas en renta
+      </a>
+      <a href="#oferta" data-filter-link="venta">
+        <span>◇</span> Casas en oferta
+      </a>
+      <a href="#inmuebles">
+        <span>⌕</span> Comprar propiedad
+      </a>
+      <a href="agregar-propiedad.html" data-solo-vendedor hidden>
+        <span>＋</span> Vender propiedad
+      </a>
+      <a href="mis-solicitudes.html" data-solo-vendedor hidden>
+      <span>✉</span> Mis solicitudes
+      </a>
+      <a href="mis-solicitudes.html" data-solo-vendedor hidden>
+     <span>✉</span> Mis solicitudes
+      </a>
+      <a href="#nosotros">
+        <span>ⓘ</span> Acerca de nosotros
+      </a>
+    </nav>
+
+    <div class="sidebar-callout" data-solo-vendedor hidden>
+      <p>¿Tienes una propiedad?</p>
+      <a href="agregar-propiedad.html">
+        Publícala en Luxury360 →
+      </a>
+    </div>
+
+    <div class="sidebar-bottom" id="sidebarInvitado">
+      <a href="login.html">Iniciar sesión</a>
+      <a href="registro.html">Crear cuenta</a>
+    </div>
+
+    <div class="sidebar-bottom" id="sidebarConectado" hidden>
+      <span id="nombreUsuarioMenu"></span>
+      <button
+        type="button"
+        id="btnCerrarSesionMenu"
+        class="top-link">
+        Cerrar sesión
+      </button>
+    </div>
+
+  </aside>
+
+  <main>
+
+    <!-- PORTADA -->
+    <section class="hero">
+
+      <div class="hero-shade"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">ESPACIOS QUE INSPIRAN</p>
+
+        <h1>
+          Encuentra el lugar<br>
+          que te hace sentir <em>en casa.</em>
+        </h1>
+
+        <p class="hero-copy">
+          Propiedades seleccionadas para acompañar tu siguiente capítulo.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button" href="#inmuebles">
+            Explorar propiedades
+          </a>
+
+          <a
+            class="button button-outline"
+            href="agregar-propiedad.html"
+            data-solo-vendedor
+            hidden>
+            Publicar propiedad
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-note">
+        <span></span> Tu próximo hogar comienza aquí
+      </div>
+
+    </section>
+
+    <!-- BÚSQUEDA RÁPIDA -->
+    <section
+      class="quick-search section-wrap"
+      aria-label="Explorar propiedades">
+
+      <div>
+        <p class="eyebrow eyebrow-dark">ENCUENTRA TU ESPACIO</p>
+        <h2>¿Qué estás buscando?</h2>
+      </div>
+
+      <div class="search-actions">
+
+        <a
+          class="search-tile"
+          href="#oferta"
+          data-filter-link="venta">
+          <span class="tile-icon">◇</span>
+          <span>
+            <strong>Comprar</strong>
+            <small>Encuentra tu propiedad</small>
+          </span>
+          <span class="tile-arrow">→</span>
+        </a>
+
+        <a
+          class="search-tile"
+          href="#renta"
+          data-filter-link="renta">
+          <span class="tile-icon">⌂</span>
+          <span>
+            <strong>Rentar</strong>
+            <small>Tu espacio ideal</small>
+          </span>
+          <span class="tile-arrow">→</span>
+        </a>
+
+        <a
+          class="search-tile"
+          href="agregar-propiedad.html"
+          data-solo-vendedor
+          hidden>
+          <span class="tile-icon">＋</span>
+          <span>
+            <strong>Vender</strong>
+            <small>Anuncia tu inmueble</small>
+          </span>
+          <span class="tile-arrow">→</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- PROPIEDADES -->
+    <section class="properties-section section-wrap" id="inmuebles">
+
+      <div class="section-heading">
+
+        <div>
+          <p class="eyebrow eyebrow-dark">SELECCIÓN LUXURY360</p>
+          <h2>Propiedades destacadas</h2>
+          <p class="section-subtitle">
+            Explora espacios que podrían convertirse en tu próximo hogar.
+          </p>
+        </div>
+
+        <div
+          class="filter-tabs"
+          role="group"
+          aria-label="Filtrar propiedades">
+
+          <button
+            class="filter-tab is-active"
+            type="button"
+            data-filter="todas">
+            Todas
+          </button>
+
+          <button
+            class="filter-tab"
+            type="button"
+            data-filter="venta"
+            id="oferta">
+            En venta
+          </button>
+
+          <button
+            class="filter-tab"
+            type="button"
+            data-filter="renta"
+            id="renta">
+            En renta
+          </button>
+
+        </div>
+      </div>
+
+      <div class="property-grid" id="propertyGrid">
+
+        <!-- CASA 1 -->
+        <article class="property-card" data-operation="venta">
+
+          <div class="property-image-wrap">
+            <img
+              class="property-image"
+              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1100&q=85"
+              alt="Residencia contemporánea con jardín">
+            <span class="property-tag">En venta</span>
+          </div>
+
+          <div class="property-info">
+            <p class="property-location">Ciudad de México, CDMX</p>
+            <h3>Residencia contemporánea</h3>
+
+            <p class="property-description">
+              Arquitectura moderna y espacios amplios para disfrutar.
+            </p>
+
+            <div class="property-bottom">
+              <strong class="property-price">
+                $1,500,000 <small>MXN</small>
+              </strong>
+
+              <a
+                class="text-button"
+                href="recorrido.html?propiedad=residencia">
+                Recorrer casa en 3D ↗
+              </a>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- CASA 2 -->
+        <article class="property-card" data-operation="venta">
+
+          <div class="property-image-wrap">
+            <img
+              class="property-image"
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1100&q=85"
+              alt="Casa moderna con terraza">
+            <span class="property-tag">En venta</span>
+          </div>
+
+          <div class="property-info">
+            <p class="property-location">Guadalajara, Jalisco</p>
+            <h3>Casa con terraza</h3>
+
+            <p class="property-description">
+              Diseño funcional en una ubicación privilegiada.
+            </p>
+
+            <div class="property-bottom">
+              <strong class="property-price">
+                $500,000 <small>MXN</small>
+              </strong>
+
+              <a
+                class="text-button"
+                href="recorrido.html?propiedad=guadalajara">
+                Recorrer casa en 3D ↗
+              </a>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- CASA 3 -->
+        <article class="property-card" data-operation="renta">
+
+          <div class="property-image-wrap">
+            <img
+              class="property-image"
+              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=85"
+              alt="Interior luminoso de una propiedad">
+            <span class="property-tag property-tag-rent">En renta</span>
+          </div>
+
+          <div class="property-info">
+            <p class="property-location">Pachuca, Hidalgo</p>
+            <h3>Residencia familiar</h3>
+
+            <p class="property-description">
+              Ambientes luminosos y distribución cómoda.
+            </p>
+
+            <div class="property-bottom">
+              <strong class="property-price">
+                $15,000 <small>MXN / mes</small>
+              </strong>
+
+              <a
+                class="text-button"
+                href="recorrido.html?propiedad=pachuca">
+                Recorrer casa en 3D ↗
+              </a>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- LAS PROPIEDADES DE AIVEN SE AGREGAN AQUÍ CON SCRIPT.JS -->
+
+      </div>
+
+      <p class="empty-state" id="emptyProperties" hidden>
+        No hay propiedades en esta categoría por el momento.
+      </p>
+
+    </section>
+
+    <!-- SECCIÓN PARA VENDEDORES -->
+    <section
+      class="sell-banner section-wrap"
+      data-solo-vendedor
+      hidden>
+
+      <div>
+        <p class="eyebrow">¿ERES PROPIETARIO?</p>
+
+        <h2>
+          Tu propiedad merece<br>
+          una gran presentación.
+        </h2>
+
+        <p>
+          Publica tu inmueble y permite que más personas
+          encuentren su próximo hogar.
+        </p>
+      </div>
+
+      <a
+        class="button button-light"
+        href="agregar-propiedad.html">
+        Vender mi propiedad <span>→</span>
+      </a>
+
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="about-section section-wrap" id="nosotros">
+
+      <div class="about-image">
+        <img
+          src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1100&q=85"
+          alt="Sala de una casa contemporánea">
+      </div>
+
+      <div class="about-copy">
+        <p class="eyebrow eyebrow-dark">ACERCA DE NOSOTROS</p>
+
+        <h2>
+          Más que propiedades,<br>
+          <em>encontramos posibilidades.</em>
+        </h2>
+
+        <p>
+          En Luxury360 queremos hacer más sencilla la búsqueda y
+          publicación de inmuebles. Nuestro objetivo es conectar
+          a personas con espacios que se adapten a sus planes,
+          necesidades y estilo de vida.
+        </p>
+
+        <a class="text-button" href="#contacto">
+          Conoce más sobre Luxury360 ↗
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer" id="contacto">
+
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">L<span>360</span></span>
+          <span class="brand-name">Luxury<span>360</span></span>
+        </a>
+
+        <p>Espacios para vivir lo extraordinario.</p>
+      </div>
+
+      <div class="footer-column">
+        <h3>Explora</h3>
+        <a href="#inmuebles">Propiedades</a>
+        <a href="#renta" data-filter-link="renta">Casas en renta</a>
+        <a href="#oferta" data-filter-link="venta">Casas en oferta</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>Luxury360</h3>
+        <a href="#nosotros">Acerca de nosotros</a>
+
+        <a
+          href="agregar-propiedad.html"
+          data-solo-vendedor
+          hidden>
+          Vender propiedad
+        </a>
+        <a href="mis-solicitudes.html" data-solo-vendedor hidden>
+          Mis solicitudes
+         </a>
+
+        <a href="registro.html" data-solo-invitado>
+          Crear cuenta
+        </a>
+      </div>
+
+      <div class="footer-column">
+
+        <h3>Contacto</h3>
+
+        <a href="tel:+525617978738">
+          +52 5617978738
+        </a>
+
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=Luxuryinmuebles360@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer">
+          Luxuryinmuebles360@gmail.com
+        </a>
+
+        <div class="social-links">
+
+          <a
+            href="https://www.instagram.com/luxuryinmuebles360?srtk=emQ4NnNzcmJueml6&utm_source=qr"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram de Luxury360">
+            IG
+          </a>
+
+          <a
+            href="https://www.facebook.com/share/1HtaJ8JswE/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook de Luxury360">
+            f
+          </a>
+
+          <a
+            href="https://x.com/luxuryinmuebles?s=11"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X de Luxury360">
+            X
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>
+        © <span id="currentYear"></span> Luxury360.
+        Todos los derechos reservados.
+      </span>
+
+      <span>Diseñado para encontrar tu próximo hogar.</span>
+    </div>
+
+  </footer>
+
+</body>
+</html>

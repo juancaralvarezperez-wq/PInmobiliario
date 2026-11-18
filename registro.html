@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury360 | Crear cuenta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><script src="script.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">L<span>360</span></span><span class="brand-name">Luxury<span>360</span></span></a><a class="top-link" href="index.html">← Volver al inicio</a></header>
+  <main class="register-layout">
+    <section class="register-heading"><p class="eyebrow eyebrow-dark">ÚNETE A LUXURY360</p><h1>Crea tu cuenta.</h1><p>Completa tus datos para comenzar a explorar, comprar, rentar o publicar propiedades.</p></section>
+    <section class="auth-card register-card">
+      <form id="formRegistro" class="formulario" novalidate>
+        <div class="form-section-title"><span>01</span><div><h2>Datos personales</h2><p>Información básica de tu cuenta.</p></div></div>
+        <div class="form-grid">
+          <div class="campo-formulario"><label for="regNombre">Nombre(s) *</label><input id="regNombre" name="nombre" type="text" autocomplete="given-name" required minlength="2" maxlength="60" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]{2,60}" placeholder="Ej. María Fernanda"></div>
+          <div class="campo-formulario"><label for="regApellidos">Apellidos *</label><input id="regApellidos" name="apellidos" type="text" autocomplete="family-name" required minlength="2" maxlength="80" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]{2,80}" placeholder="Ej. López García"></div>
+          <div class="campo-formulario"><label for="regEmail">Correo electrónico *</label><input id="regEmail" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="nombre@correo.com"></div>
+          <div class="campo-formulario"><label for="regEdad">Edad *</label><input id="regEdad" name="edad" type="number" min="18" max="110" required inputmode="numeric" placeholder="Debes tener al menos 18 años"></div>
+          <div class="campo-formulario"><label for="regEstado">Estado / provincia *</label><select id="regEstado" name="estado" required><option value="">Selecciona tu estado</option><option>Aguascalientes</option><option>Baja California</option><option>Baja California Sur</option><option>Campeche</option><option>Chiapas</option><option>Chihuahua</option><option>Ciudad de México</option><option>Coahuila</option><option>Colima</option><option>Durango</option><option>Estado de México</option><option>Guanajuato</option><option>Guerrero</option><option>Hidalgo</option><option>Jalisco</option><option>Michoacán</option><option>Morelos</option><option>Nayarit</option><option>Nuevo León</option><option>Oaxaca</option><option>Puebla</option><option>Querétaro</option><option>Quintana Roo</option><option>San Luis Potosí</option><option>Sinaloa</option><option>Sonora</option><option>Tabasco</option><option>Tamaulipas</option><option>Tlaxcala</option><option>Veracruz</option><option>Yucatán</option><option>Zacatecas</option></select></div>
+          <div class="campo-formulario"><label for="regTelefono">Teléfono (10 dígitos) *</label><input id="regTelefono" name="telefono" type="tel" inputmode="numeric" autocomplete="tel" required pattern="[0-9]{10}" minlength="10" maxlength="10" placeholder="5512345678"></div>
+          <div class="campo-formulario"><label for="regPassword">Contraseña *</label><input id="regPassword" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="64" placeholder="Mínimo 8 caracteres"></div>
+          <div class="campo-formulario"><label for="regPasswordConfirm">Confirmar contraseña *</label><input id="regPasswordConfirm" name="passwordConfirm" type="password" autocomplete="new-password" required minlength="8" maxlength="64" placeholder="Repite tu contraseña"></div>      
+          <div class="campo-formulario"><label for="regRol">¿Qué deseas hacer en Luxury360? *</label><select id="regRol" name="rol" required><option value="">Selecciona una opción</option><option value="comprador">Comprar o rentar propiedades</option><option value="vendedor">Publicar propiedades</option>
+  </select>
+</div>
+
+        </div>
+        <div class="form-section-title sat-title"><span>02</span><div><h2>Información fiscal</h2><p>Indica si estás inscrito o afiliado al SAT.</p></div></div>
+        <div class="campo-formulario">
+          <label for="regSat">¿Estás inscrito ante el SAT? *</label>
+          <select id="regSat" name="sat" required><option value="">Selecciona una opción</option><option value="no">No</option><option value="si">Sí</option></select>
+        </div>
+        <div class="conditional-fields" id="satFields" hidden>
+          <div class="notice">Estos datos son opcionales para crear una cuenta en este prototipo. No ingreses contraseñas, e.firma ni archivos privados.</div>
+          <div class="form-grid">
+            <div class="campo-formulario"><label for="regRfc">RFC</label><input id="regRfc" name="rfc" type="text" maxlength="13" minlength="12" pattern="[A-Za-zÑ&]{3,4}[0-9]{6}[A-Za-z0-9]{3}" placeholder="RFC de 12 o 13 caracteres"></div>
+            <div class="campo-formulario"><label for="regRazon">Razón social (si aplica)</label><input id="regRazon" name="razonSocial" type="text" maxlength="120" placeholder="Nombre fiscal"></div>
+            <div class="campo-formulario"><label for="regRegimen">Régimen fiscal</label><input id="regRegimen" name="regimen" type="text" maxlength="100" placeholder="Ej. Sueldos y salarios"></div>
+            <div class="campo-formulario"><label for="regCpFiscal">Código postal fiscal</label><input id="regCpFiscal" name="cpFiscal" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="5 dígitos"></div>
+          </div>
+        </div>
+        <label class="check-row"><input type="checkbox" id="regAviso" required><span>Confirmo que los datos proporcionados son correctos y acepto el aviso de privacidad. *</span></label>
+        <button class="button button-full" type="submit">Crear mi cuenta</button>
+        <p class="form-message" id="registroMessage" aria-live="polite"></p>
+      </form>
+      <p class="auth-switch">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+      <p class="demo-note">Tu cuenta se registrará de forma segura mediante nuestro servidory se almacenará en la base de datos de Luxury360.</p>
+    </section>
+  </main>
+  <footer class="auth-footer">© <span id="currentYear"></span> Luxury360</footer>
+</body>
+</html>

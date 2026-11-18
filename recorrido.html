@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorrido 3D | Luxury360</title>
+    <link rel="stylesheet" href="recorrido.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+      }
+    }
+    </script>
+    <script type="module" src="recorrido.js"></script>
+</head>
+<body>
+    <header class="barra">
+        <a href="index.html" class="marca">Luxury360</a>
+        <div id="nombrePropiedad">Recorrido virtual</div>
+        <a href="index.html" class="volver">← Volver a inmuebles</a>
+    </header>
+
+    <main id="escenario">
+        <div id="pantallaInicio" class="panel">
+            <h1>Recorre la casa</h1>
+            <p>Esta es una casa de demostración creada con Three.js. Haz clic para comenzar.</p>
+            <p><strong>W A S D</strong> para moverte · <strong>Mouse</strong> para mirar · <strong>Esc</strong> para liberar el mouse</p>
+            <button id="iniciar">Entrar al recorrido</button>
+        </div>
+        <div id="aviso" class="aviso">Cargando recorrido 3D…</div>
+        <div class="ayuda">WASD: caminar · Mouse: mirar · ESC: liberar cursor</div>
+        <div id="error" class="error" hidden></div>
+    </main>
+</body>
+</html>

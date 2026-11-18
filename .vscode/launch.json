@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Luxury360 - XAMPP",
+            "url": "http://localhost:8012/inmobiliaria/index.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

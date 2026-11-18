@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis solicitudes | Luxury360</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .solicitudes-pagina {
+            min-height: 100vh;
+            background: #f5f6f8;
+            padding: 110px 20px 60px;
+        }
+
+        .solicitudes-contenedor {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .solicitudes-encabezado {
+            margin-bottom: 30px;
+        }
+
+        .solicitudes-encabezado h1 {
+            font-family: "Playfair Display", serif;
+            color: #14263b;
+            font-size: clamp(30px, 4vw, 44px);
+            margin: 8px 0;
+        }
+
+        .solicitudes-encabezado p {
+            color: #667085;
+        }
+
+        .solicitudes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+            gap: 22px;
+        }
+
+        .solicitud-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
+            border: 1px solid #e8ebf0;
+        }
+
+        .solicitud-card h2 {
+            font-family: "Playfair Display", serif;
+            color: #14263b;
+            font-size: 24px;
+            margin: 12px 0;
+        }
+
+        .solicitud-card p {
+            line-height: 1.65;
+            margin: 9px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .solicitud-estado {
+            display: inline-block;
+            border-radius: 30px;
+            padding: 6px 13px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .estado-pendiente {
+            background: #fff3d6;
+            color: #946200;
+        }
+
+        .estado-atendida {
+            background: #e0f5e8;
+            color: #187443;
+        }
+
+        .estado-cancelada {
+            background: #fce6e6;
+            color: #b42318;
+        }
+
+        .solicitud-mensaje {
+            background: #f5f7fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 18px 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .solicitud-card textarea {
+            width: 100%;
+            min-height: 115px;
+            border: 1px solid #d5d9e0;
+            border-radius: 10px;
+            padding: 13px;
+            font: inherit;
+            resize: vertical;
+            box-sizing: border-box;
+            margin: 12px 0;
+        }
+
+        .solicitud-card button {
+            border: none;
+            cursor: pointer;
+        }
+
+        .solicitud-card button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .solicitud-respuesta {
+            border-left: 3px solid #187443;
+            padding: 10px 15px;
+            margin-top: 15px;
+            background: #f1faf4;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .solicitud-fecha {
+            font-size: 12px;
+            color: #667085;
+        }
+
+        .solicitudes-aviso {
+            padding: 20px;
+            border-radius: 12px;
+            background: white;
+            color: #667085;
+        }
+
+        .solicitud-resultado {
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .solicitud-card a {
+            color: #14263b;
+        }
+    </style>
+
+    <script src="mis-solicitudes.js" defer></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="brand-mark">L<span>360</span></span>
+            <span class="brand-name">Luxury<span>360</span></span>
+        </a>
+
+        <nav class="top-actions">
+            <a class="top-link" href="index.html">
+                Volver al inicio
+            </a>
+        </nav>
+    </header>
+
+    <main class="solicitudes-pagina">
+        <div class="solicitudes-contenedor">
+
+            <div class="solicitudes-encabezado">
+                <p class="eyebrow eyebrow-dark">PANEL DEL VENDEDOR</p>
+                <h1>Mis solicitudes</h1>
+                <p>
+                    Consulta y responde los mensajes de las personas
+                    interesadas en tus propiedades.
+                </p>
+            </div>
+
+            <div id="estadoCarga" class="solicitudes-aviso" role="status">
+                Cargando solicitudes...
+            </div>
+
+            <div id="listaSolicitudes" class="solicitudes-grid"></div>
+
+        </div>
+    </main>
+
+</body>
+</html>

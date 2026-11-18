@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Solicitar información | Luxury360</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .solicitud-pagina {
+            min-height: 100vh;
+            background: #f5f6f8;
+            padding: 105px 20px 55px;
+        }
+
+        .solicitud-contenedor {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 12px 35px rgba(0,0,0,.08);
+        }
+
+        .solicitud-contenedor h1 {
+            font-family: "Playfair Display", serif;
+            color: #14263b;
+            margin-bottom: 12px;
+        }
+
+        .solicitud-subtitulo {
+            color: #667085;
+            margin-bottom: 25px;
+        }
+
+        .solicitud-propiedad {
+            background: #f1f4f7;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .solicitud-campo {
+            margin-bottom: 20px;
+        }
+
+        .solicitud-campo label {
+            display: block;
+            margin-bottom: 8px;
+            color: #14263b;
+            font-weight: 600;
+        }
+
+        .solicitud-campo input,
+        .solicitud-campo textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5d9e0;
+            border-radius: 9px;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .solicitud-campo textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .solicitud-enviar {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .solicitud-mensaje {
+            margin-top: 18px;
+            font-weight: 600;
+        }
+
+        .solicitud-volver {
+            display: inline-block;
+            margin-top: 20px;
+            color: #14263b;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .solicitud-contenedor {
+                padding: 22px;
+            }
+        }
+    </style>
+
+    <script src="solicitar-informacion.js" defer></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="brand-mark">L<span>360</span></span>
+            <span class="brand-name">Luxury<span>360</span></span>
+        </a>
+
+        <nav class="top-actions">
+            <a class="top-link" href="index.html">
+                Volver a propiedades
+            </a>
+        </nav>
+    </header>
+
+    <main class="solicitud-pagina">
+        <section class="solicitud-contenedor">
+
+            <p class="eyebrow eyebrow-dark">CONTACTO LUXURY360</p>
+
+            <h1>Solicitar información</h1>
+
+            <p class="solicitud-subtitulo">
+                Envía tus preguntas sobre esta propiedad.
+            </p>
+
+            <div class="solicitud-propiedad">
+                <strong>Propiedad seleccionada:</strong>
+                <p id="nombrePropiedad">Cargando propiedad...</p>
+            </div>
+
+            <form id="formSolicitud">
+
+                <div class="solicitud-campo">
+                    <label for="nombreContacto">Nombre completo</label>
+                    <input
+                        type="text"
+                        id="nombreContacto"
+                        maxlength="100"
+                        required>
+                </div>
+
+                <div class="solicitud-campo">
+                    <label for="correoContacto">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="correoContacto"
+                        maxlength="150"
+                        required>
+                </div>
+
+                <div class="solicitud-campo">
+                    <label for="telefonoContacto">Teléfono (opcional)</label>
+                    <input
+                        type="tel"
+                        id="telefonoContacto"
+                        maxlength="20">
+                </div>
+
+                <div class="solicitud-campo">
+                    <label for="mensajeContacto">Mensaje para el vendedor</label>
+                    <textarea
+                        id="mensajeContacto"
+                        maxlength="2000"
+                        minlength="10"
+                        required
+                        placeholder="Hola, me interesa esta propiedad. ¿Podría darme más información?"></textarea>
+                </div>
+
+                <button
+                    type="submit"
+                    class="button solicitud-enviar"
+                    id="btnEnviarSolicitud">
+                    Enviar solicitud
+                </button>
+
+                <p
+                    class="solicitud-mensaje"
+                    id="mensajeResultado"
+                    role="status"
+                    aria-live="polite"></p>
+
+            </form>
+
+            <a href="index.html#inmuebles" class="solicitud-volver">
+                ← Regresar a propiedades
+            </a>
+
+        </section>
+    </main>
+
+</body>
+</html>
