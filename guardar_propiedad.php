@@ -45,6 +45,9 @@ $ciudad = trim($datos["ciudad"] ?? "");
 $estado = trim($datos["estado"] ?? "");
 $imagen = trim($datos["imagen"] ?? "");
 $descripcion = trim($datos["descripcion"] ?? "");
+$superficie = $datos["superficie"] ?? null;
+$habitaciones = $datos["habitaciones"] ?? null;
+$banos = $datos["banos"] ?? null;
 
 if (
     mb_strlen($titulo) < 5 ||
@@ -83,6 +86,34 @@ if (
     responder(400, "El precio no es válido.");
 }
 
+if (
+    !is_numeric($superficie) ||
+    (float) $superficie <= 0 ||
+    (float) $superficie > 999999
+) {
+    responder(400, "La superficie no es válida.");
+}
+
+if (
+    filter_var(
+        $habitaciones,
+        FILTER_VALIDATE_INT,
+        ["options" => ["min_range" => 0, "max_range" => 100]]
+    ) === false
+) {
+    responder(400, "El número de habitaciones no es válido.");
+}
+
+if (
+    filter_var(
+        $banos,
+        FILTER_VALIDATE_INT,
+        ["options" => ["min_range" => 0, "max_range" => 100]]
+    ) === false
+) {
+    responder(400, "El número de baños no es válido.");
+}
+
 if ($imagen !== "") {
     if (
         mb_strlen($imagen) > 500 ||
@@ -113,9 +144,12 @@ try {
                 direccion,
                 ciudad,
                 estado,
+                superficie,
+                habitaciones,
+                banos,
                 estado_publicacion
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'publicado')";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'publicado')";
 
     $consulta = $conexion->prepare($sql);
 
@@ -128,7 +162,10 @@ try {
         $precio,
         $direccion,
         $ciudad,
-        $estado
+        $estado,
+        (float) $superficie,
+        (int) $habitaciones,
+        (int) $banos
     ]);
 
     $idInmueble = (int) $conexion->lastInsertId();

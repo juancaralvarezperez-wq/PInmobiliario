@@ -58,43 +58,99 @@ function inicializarMenu() {
 }
 
 function inicializarFiltros() {
+  const formulario = document.getElementById("propertyFilters");
   const botones = document.querySelectorAll("[data-filter]");
-  const tarjetas = document.querySelectorAll(".property-card");
-  const vacio = document.getElementById("emptyProperties");
+  const limpiar = document.getElementById("clearFilters");
 
-  function filtrar(tipo) {
-    let visibles = 0;
-    tarjetas.forEach(tarjeta => {
-      const coincide = tipo === "todas" || tarjeta.dataset.operation === tipo;
-      tarjeta.hidden = !coincide;
-      if (coincide) visibles++;
+  botones.forEach(boton => {
+    boton.addEventListener("click", () => {
+      const operacion = boton.dataset.filter;
+      const seleccion = document.getElementById("buscarOperacion");
+
+      if (seleccion) {
+        seleccion.value = operacion === "todas" ? "" : operacion;
+      }
+
+      botones.forEach(item =>
+        item.classList.toggle("is-active", item === boton)
+      );
+
+      renderizarPropiedadesGuardadas(
+        formulario ? new FormData(formulario) : null
+      );
     });
-    if (vacio) vacio.hidden = visibles !== 0;
-    botones.forEach(boton => boton.classList.toggle("is-active", boton.dataset.filter === tipo));
+  });
+
+  if (formulario) {
+    formulario.addEventListener("submit", evento => {
+      evento.preventDefault();
+      renderizarPropiedadesGuardadas(new FormData(formulario));
+    });
   }
-  botones.forEach(boton => boton.addEventListener("click", () => filtrar(boton.dataset.filter)));
+
+  if (limpiar && formulario) {
+    limpiar.addEventListener("click", () => {
+      formulario.reset();
+      botones.forEach(boton =>
+        boton.classList.toggle("is-active", boton.dataset.filter === "todas")
+      );
+      renderizarPropiedadesGuardadas();
+    });
+  }
+
   document.querySelectorAll("[data-filter-link]").forEach(enlace => {
     enlace.addEventListener("click", () => {
       const tipo = enlace.dataset.filterLink;
-      if (document.querySelector(`[data-filter="${tipo}"]`)) filtrar(tipo);
+      const seleccion = document.getElementById("buscarOperacion");
+      if (seleccion) seleccion.value = tipo;
+      renderizarPropiedadesGuardadas(
+        formulario ? new FormData(formulario) : null
+      );
     });
   });
 }
 
 
 
-async function renderizarPropiedadesGuardadas() {
+async function renderizarPropiedadesGuardadas(datosFormulario = null) {
     const contenedor = document.getElementById("propertyGrid");
+    const carga = document.getElementById("loadingProperties");
+    const vacio = document.getElementById("emptyProperties");
 
     if (!contenedor) return;
 
+    const parametros = new URLSearchParams();
+
+    if (datosFormulario instanceof FormData) {
+      for (const [clave, valor] of datosFormulario.entries()) {
+        if (String(valor).trim() !== "") {
+          parametros.set(clave, String(valor).trim());
+        }
+      }
+    }
+
+    if (carga) carga.hidden = false;
+    if (vacio) vacio.hidden = true;
+    contenedor.querySelectorAll(".property-card-aiven").forEach(
+        tarjeta => tarjeta.remove()
+    );
+
     try {
-        const respuesta = await fetch("obtener_propiedades.php", {
+        const consulta = parametros.toString();
+        const respuesta = await fetch(
+            "obtener_propiedades.php" +
+            (consulta ? `?${consulta}` : ""),
+            {
             cache: "no-store"
-        });
+            }
+        );
 
         if (!respuesta.ok) {
-            throw new Error("No se pudieron obtener las propiedades.");
+            const errorDatos = await respuesta.json().catch(() => null);
+            throw new Error(
+                errorDatos?.message ||
+                "No se pudieron obtener las propiedades."
+            );
         }
 
         const datos = await respuesta.json();
@@ -182,7 +238,28 @@ async function renderizarPropiedadesGuardadas() {
               encodeURIComponent(propiedad.id);
                botonInformacion.textContent = "Solicitar información ↗";
 
-               parteInferior.append(precio, boton, botonInformacion);
+            let sesion = null;
+            try {
+                sesion = JSON.parse(
+                    sessionStorage.getItem("luxury360Sesion") || "null"
+                );
+            } catch (error) {
+                sesion = null;
+            }
+
+            parteInferior.append(precio, boton, botonInformacion);
+
+            if (
+                sesion?.rol === "vendedor" &&
+                Number(sesion.id) === Number(propiedad.id_vendedor)
+            ) {
+                const botonEditar = document.createElement("a");
+                botonEditar.className = "text-button";
+                botonEditar.href = "editar-propiedad.html?id=" +
+                    encodeURIComponent(propiedad.id);
+                botonEditar.textContent = "Editar propiedad ↗";
+                parteInferior.appendChild(botonEditar);
+            }
 
 
             informacion.append(
@@ -196,29 +273,11 @@ async function renderizarPropiedadesGuardadas() {
             contenedor.appendChild(tarjeta);
         });
 
-        // Respetar el filtro que esté seleccionado
-        const filtroActivo = document.querySelector(
-            ".filter-tab.is-active"
-        );
-
-        const filtro = filtroActivo?.dataset.filter || "todas";
-
-        contenedor.querySelectorAll(".property-card").forEach(
-            tarjeta => {
-                tarjeta.hidden =
-                    filtro !== "todas" &&
-                    tarjeta.dataset.operation !== filtro;
-            }
-        );
-
-        const vacio = document.getElementById("emptyProperties");
-
         if (vacio) {
-            const visibles = Array.from(
-                contenedor.querySelectorAll(".property-card")
-            ).some(tarjeta => !tarjeta.hidden);
-
-            vacio.hidden = visibles;
+            vacio.hidden = datos.propiedades.length !== 0;
+            vacio.textContent = datos.propiedades.length === 0
+                ? "No encontramos propiedades con estos filtros."
+                : "";
         }
 
         console.log(
@@ -228,6 +287,13 @@ async function renderizarPropiedadesGuardadas() {
 
     } catch (error) {
         console.error("Error al cargar propiedades:", error);
+        if (vacio) {
+            vacio.hidden = false;
+            vacio.textContent = error.message ||
+                "No fue posible cargar las propiedades.";
+        }
+    } finally {
+        if (carga) carga.hidden = true;
     }
 }
 
@@ -455,6 +521,37 @@ function inicializarPublicacion() {
       return;
     }
 
+    const superficie = Number(
+      document.getElementById("propSuperficie").value
+    );
+    const habitaciones = Number(
+      document.getElementById("propHabitaciones").value
+    );
+    const banos = Number(
+      document.getElementById("propBanos").value
+    );
+
+    if (!Number.isFinite(superficie) || superficie <= 0 ||
+        superficie > 999999) {
+      mostrarMensaje(
+        mensaje,
+        "La superficie debe ser un número mayor que cero.",
+        "error"
+      );
+      return;
+    }
+
+    if (!Number.isInteger(habitaciones) ||
+        habitaciones < 0 || habitaciones > 100 ||
+        !Number.isInteger(banos) || banos < 0 || banos > 100) {
+      mostrarMensaje(
+        mensaje,
+        "Habitaciones y baños deben ser números enteros válidos.",
+        "error"
+      );
+      return;
+    }
+
     const imagen = document
       .getElementById("propImagen")
       .value.trim();
@@ -474,6 +571,9 @@ function inicializarPublicacion() {
       operacion: document.getElementById("propOperacion").value,
       tipo: document.getElementById("propTipo").value,
       precio: precio,
+      superficie: Number(document.getElementById("propSuperficie").value),
+      habitaciones: Number(document.getElementById("propHabitaciones").value),
+      banos: Number(document.getElementById("propBanos").value),
       direccion: document.getElementById("propDireccion").value.trim(),
       ciudad: document.getElementById("propCiudad").value.trim(),
       estado: document.getElementById("propEstado").value.trim(),
@@ -530,6 +630,156 @@ function inicializarPublicacion() {
   });
 }
 
+function inicializarEdicion() {
+  const form = document.getElementById("formEditarPropiedad");
+  if (!form) return;
+
+  const mensaje = document.getElementById("editarPropiedadMessage");
+  const id = new URLSearchParams(window.location.search).get("id");
+
+  if (!id) {
+    mostrarMensaje(mensaje, "Falta el identificador del inmueble.", "error");
+    return;
+  }
+
+  async function cargarInmueble() {
+    try {
+      const respuesta = await fetch(
+        "obtener_inmueble.php?id=" + encodeURIComponent(id),
+        { credentials: "same-origin", cache: "no-store" }
+      );
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok || !datos.success) {
+        throw new Error(
+          datos.message || "No se pudo cargar la propiedad."
+        );
+      }
+
+      const inmueble = datos.inmueble;
+      document.getElementById("editTitulo").value = inmueble.titulo || "";
+      document.getElementById("editOperacion").value =
+        inmueble.operacion || "venta";
+      document.getElementById("editTipo").value =
+        inmueble.tipo || "casa";
+      document.getElementById("editPrecio").value = inmueble.precio || "";
+      document.getElementById("editSuperficie").value =
+        inmueble.superficie || "";
+      document.getElementById("editHabitaciones").value =
+        inmueble.habitaciones ?? 0;
+      document.getElementById("editBanos").value =
+        inmueble.banos ?? 0;
+      document.getElementById("editDireccion").value =
+        inmueble.direccion || "";
+      document.getElementById("editCiudad").value =
+        inmueble.ciudad || "";
+      document.getElementById("editEstado").value =
+        inmueble.estado || "";
+      document.getElementById("editCodigoPostal").value =
+        inmueble.codigo_postal || "";
+      document.getElementById("editImagen").value =
+        inmueble.imagen || "";
+      document.getElementById("editDescripcion").value =
+        inmueble.descripcion || "";
+    } catch (error) {
+      console.error("Error al cargar inmueble:", error);
+      mostrarMensaje(
+        mensaje,
+        error.message || "No se pudo cargar la propiedad.",
+        "error"
+      );
+    }
+  }
+
+  form.addEventListener("submit", async evento => {
+    evento.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const precio = Number(document.getElementById("editPrecio").value);
+    const superficie = Number(document.getElementById("editSuperficie").value);
+    const habitaciones = Number(
+      document.getElementById("editHabitaciones").value
+    );
+    const banos = Number(document.getElementById("editBanos").value);
+
+    if (!Number.isFinite(precio) || precio <= 0 || precio > 999999999 ||
+        !Number.isFinite(superficie) || superficie <= 0 ||
+        superficie > 999999) {
+      mostrarMensaje(
+        mensaje,
+        "Precio y superficie deben ser números válidos mayores que cero.",
+        "error"
+      );
+      return;
+    }
+
+    if (!Number.isInteger(habitaciones) ||
+        habitaciones < 0 || habitaciones > 100 ||
+        !Number.isInteger(banos) || banos < 0 || banos > 100) {
+      mostrarMensaje(
+        mensaje,
+        "Habitaciones y baños deben ser números enteros válidos.",
+        "error"
+      );
+      return;
+    }
+
+    const propiedad = {
+      id_inmueble: Number(id),
+      titulo: document.getElementById("editTitulo").value.trim(),
+      operacion: document.getElementById("editOperacion").value,
+      tipo: document.getElementById("editTipo").value,
+      precio: Number(document.getElementById("editPrecio").value),
+      superficie: Number(document.getElementById("editSuperficie").value),
+      habitaciones: Number(document.getElementById("editHabitaciones").value),
+      banos: Number(document.getElementById("editBanos").value),
+      direccion: document.getElementById("editDireccion").value.trim(),
+      ciudad: document.getElementById("editCiudad").value.trim(),
+      estado: document.getElementById("editEstado").value.trim(),
+      codigo_postal: document.getElementById("editCodigoPostal").value.trim(),
+      imagen: document.getElementById("editImagen").value.trim(),
+      descripcion: document.getElementById("editDescripcion").value.trim()
+    };
+
+    const boton = form.querySelector('button[type="submit"]');
+    boton.disabled = true;
+
+    try {
+      const respuesta = await fetch("actualizar_inmueble.php", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify(propiedad)
+      });
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok || !datos.success) {
+        throw new Error(
+          datos.message || "No se pudo actualizar la propiedad."
+        );
+      }
+
+      mostrarMensaje(mensaje, datos.message, "success");
+      mostrarAviso(datos.message, "success");
+    } catch (error) {
+      console.error("Error al actualizar inmueble:", error);
+      mostrarMensaje(
+        mensaje,
+        error.message || "No se pudo actualizar la propiedad.",
+        "error"
+      );
+      mostrarAviso(error.message || "Error al actualizar.", "error");
+    } finally {
+      boton.disabled = false;
+    }
+  });
+
+  cargarInmueble();
+}
+
 function inicializarDetalles() {
   document.querySelectorAll("[data-property-detail]").forEach(boton => {
     boton.addEventListener("click", () => {
@@ -545,6 +795,7 @@ function inicializarSitio() {
   inicializarRegistro();
   inicializarLogin();
   inicializarPublicacion();
+  inicializarEdicion();
   inicializarDetalles();
   const year = document.getElementById("currentYear");
   if (year) year.textContent = new Date().getFullYear();

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+/* Luxury360 - sistema visual principal */
 /* LUXURY360 — sistema visual */
 :root {
   --navy: #14283f;
@@ -247,9 +247,96 @@ body.menu-open .sidebar-backdrop { opacity: 1; visibility: visible; }
 .property-card-aiven .text-button {
     font-size: 13px;
 }
-=======
 
-/* ESTILOS GENERALES */
+.property-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 28px;
+  padding: 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.filter-field {
+  display: grid;
+  gap: 7px;
+}
+
+.filter-field-wide {
+  grid-column: span 2;
+}
+
+.filter-field label {
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.filter-field input,
+.filter-field select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #d8dcd9;
+  border-radius: 3px;
+  background: white;
+  color: var(--ink);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.filter-field input:focus,
+.filter-field select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(196, 164, 106, .16);
+}
+
+.filter-actions {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  grid-column: span 2;
+}
+
+.filter-clear {
+  min-height: 50px;
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--navy);
+  padding: 0 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.loading-state,
+.empty-state {
+  margin: 28px 0 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .property-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 550px) {
+  .property-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-field-wide,
+  .filter-actions {
+    grid-column: span 1;
+  }
+}
+/* Legacy styles from an unresolved merge - kept out of active CSS:
+
+ESTILOS GENERALES:
 body {
     margin: 10;
     font-family: 'Times New Roman', Times, serif, sans-serif;
@@ -275,14 +362,14 @@ h3 {
     color: #2d6a4f;
 }
 
-/* CONTENIDO PRINCIPAL */
+CONTENIDO PRINCIPAL:
 main {
     max-width: 1100px;
     margin: 40px auto;
     padding: 0 30px;
 }
 
-/* BIENVENIDA */
+BIENVENIDA:
 .bienvenida {
     text-align: center;
     padding: 35px 20px;
@@ -291,7 +378,7 @@ main {
     margin-bottom: 35px;
 }
 
-/* NavBar */
+NavBar:
 .navbar {
     display: flex; 
     justify-content: space-between;
@@ -301,13 +388,13 @@ main {
     padding: 20px 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-/* Logo */
+Logo:
 .logo {
     color: white;
     margin: 50;
 }
     
-/* menu */
+menu:
 .menu {
     list-style: none;
     display: flex;
@@ -339,7 +426,7 @@ main {
     font-size: 18px;
 }
 
-/* SECCION DE INMUEBLES */
+SECCION DE INMUEBLES:
 #inmuebles {
     margin-bottom: 40px;
 }
@@ -349,14 +436,14 @@ main {
     margin-bottom: 20px;
 }
 
-/* ORGANIZACION DE LAS TARJETAS */
+ORGANIZACION DE LAS TARJETAS:
 .contenedor-propiedades {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
 }
 
-/* TARJETA DE PROPIEDAD */
+TARJETA DE PROPIEDAD:
 .propiedad {
     background-color: white;
     border-radius: 12px;
@@ -375,7 +462,7 @@ main {
     margin-top: 0;
 }
 
-/* FOTOGRAFIA */
+FOTOGRAFIA:
 .foto-propiedad {
     width: 100%;
     height: 230px;
@@ -383,7 +470,7 @@ main {
     display: block;
 }
 
-/* INFORMACION */
+INFORMACION:
 .info-propiedad {
     padding: 20px;
 }
@@ -394,7 +481,7 @@ main {
     font-weight: bold;
 }
 
-/* BOTON */
+BOTON:
 .info-propiedad button {
     background-color: #16324f;
     color: white;
@@ -408,14 +495,14 @@ main {
     background-color: #247ba0;
 }
 
-/* CONTACTO */
+CONTACTO:
 #contacto {
     background-color: #e3edf5;
     padding: 25px;
     border-radius: 12px;
 }
 
-/* ADAPTACION A PANTALLAS PEQUEÑAS */
+ADAPTACION A PANTALLAS PEQUEÑAS:
 @media (max-width: 800px) {
     .contenedor-propiedades {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -437,4 +524,4 @@ main {
         justify-content: center;
     }
 }
->>>>>>> a5c7eff53fd322407eb4ab219252bdd4ac1994fb
+*/

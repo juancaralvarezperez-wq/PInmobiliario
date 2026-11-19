@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury360 | Editar propiedad</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="auth-page">
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">L<span>360</span></span>
+      <span class="brand-name">Luxury<span>360</span></span>
+    </a>
+  </header>
+
+  <main class="register-layout">
+    <section class="register-heading">
+      <p class="eyebrow eyebrow-dark">PANEL DEL VENDEDOR</p>
+      <h1>Editar propiedad</h1>
+    </section>
+
+    <section class="auth-card register-card">
+      <form id="formEditarPropiedad" class="formulario" novalidate>
+        <div class="form-grid">
+          <div class="campo-formulario">
+            <label for="editTitulo">Título *</label>
+            <input id="editTitulo" name="titulo" required minlength="5" maxlength="90">
+          </div>
+          <div class="campo-formulario">
+            <label for="editOperacion">Operación *</label>
+            <select id="editOperacion" required>
+              <option value="venta">Venta</option>
+              <option value="renta">Renta</option>
+            </select>
+          </div>
+          <div class="campo-formulario">
+            <label for="editTipo">Tipo *</label>
+            <select id="editTipo" required>
+              <option value="casa">Casa</option>
+              <option value="departamento">Departamento</option>
+              <option value="terreno">Terreno</option>
+              <option value="local">Local comercial</option>
+              <option value="oficina">Oficina</option>
+            </select>
+          </div>
+          <div class="campo-formulario">
+            <label for="editPrecio">Precio (MXN) *</label>
+            <input id="editPrecio" type="number" min="1" max="999999999" step="0.01" required>
+          </div>
+          <div class="campo-formulario">
+            <label for="editSuperficie">Superficie (m²) *</label>
+            <input id="editSuperficie" type="number" min="1" max="999999" step="0.01" required>
+          </div>
+          <div class="campo-formulario">
+            <label for="editHabitaciones">Habitaciones *</label>
+            <input id="editHabitaciones" type="number" min="0" max="100" step="1" required>
+          </div>
+          <div class="campo-formulario">
+            <label for="editBanos">Baños *</label>
+            <input id="editBanos" type="number" min="0" max="100" step="1" required>
+          </div>
+          <div class="campo-formulario">
+            <label for="editDireccion">Dirección *</label>
+            <input id="editDireccion" required maxlength="255">
+          </div>
+          <div class="campo-formulario">
+            <label for="editCiudad">Ciudad *</label>
+            <input id="editCiudad" required maxlength="100">
+          </div>
+          <div class="campo-formulario">
+            <label for="editEstado">Estado *</label>
+            <input id="editEstado" required maxlength="100">
+          </div>
+          <div class="campo-formulario">
+            <label for="editCodigoPostal">Código postal</label>
+            <input id="editCodigoPostal" maxlength="5" inputmode="numeric">
+          </div>
+          <div class="campo-formulario">
+            <label for="editImagen">URL de fotografía</label>
+            <input id="editImagen" type="url" maxlength="500">
+          </div>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="editDescripcion">Descripción *</label>
+          <textarea id="editDescripcion" required minlength="20" maxlength="700" rows="4"></textarea>
+        </div>
+
+        <button class="button button-full" type="submit">Guardar cambios</button>
+        <p class="form-message" id="editarPropiedadMessage" aria-live="polite"></p>
+      </form>
+      <p class="auth-switch"><a href="index.html">← Regresar al inicio</a></p>
+    </section>
+  </main>
+</body>
+</html>

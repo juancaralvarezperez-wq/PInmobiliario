@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<!-- Luxury360 - rama principal -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -303,110 +303,131 @@
         </div>
       </div>
 
+      <form class="property-filters" id="propertyFilters">
+        <div class="filter-field filter-field-wide">
+          <label for="buscarTexto">Buscar</label>
+          <input id="buscarTexto" name="texto" type="search"
+            maxlength="100" placeholder="Título, colonia o dirección">
+        </div>
+
+        <div class="filter-field">
+          <label for="buscarOperacion">Operación</label>
+          <select id="buscarOperacion" name="operacion">
+            <option value="">Todas</option>
+            <option value="venta">Venta</option>
+            <option value="renta">Renta</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="buscarTipo">Tipo</label>
+          <select id="buscarTipo" name="tipo">
+            <option value="">Todos</option>
+            <option value="casa">Casa</option>
+            <option value="departamento">Departamento</option>
+            <option value="terreno">Terreno</option>
+            <option value="local">Local comercial</option>
+            <option value="oficina">Oficina</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="precioMinimo">Precio mínimo</label>
+          <input id="precioMinimo" name="precio_min" type="number"
+            min="0" step="1000" inputmode="numeric" placeholder="$0">
+        </div>
+
+        <div class="filter-field">
+          <label for="precioMaximo">Precio máximo</label>
+          <input id="precioMaximo" name="precio_max" type="number"
+            min="0" step="1000" inputmode="numeric" placeholder="Sin límite">
+        </div>
+
+        <div class="filter-field">
+          <label for="superficieMinima">Superficie mínima (m²)</label>
+          <input id="superficieMinima" name="superficie_min" type="number"
+            min="0" step="1" inputmode="numeric" placeholder="Opcional">
+        </div>
+
+        <div class="filter-field">
+          <label for="buscarHabitaciones">Habitaciones</label>
+          <select id="buscarHabitaciones" name="habitaciones">
+            <option value="">Cualquiera</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="buscarBanos">Baños</label>
+          <select id="buscarBanos" name="banos">
+            <option value="">Cualquiera</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label for="buscarCiudad">Ciudad o municipio</label>
+          <input id="buscarCiudad" name="ciudad" type="text"
+            maxlength="100" placeholder="Ej. Guadalajara">
+        </div>
+
+        <div class="filter-field">
+          <label for="buscarEstado">Estado de México</label>
+          <select id="buscarEstado" name="estado">
+            <option value="">Todos</option>
+            <option>Aguascalientes</option>
+            <option>Baja California</option>
+            <option>Baja California Sur</option>
+            <option>Campeche</option>
+            <option>Chiapas</option>
+            <option>Chihuahua</option>
+            <option>Ciudad de México</option>
+            <option>Coahuila</option>
+            <option>Colima</option>
+            <option>Durango</option>
+            <option>Estado de México</option>
+            <option>Guanajuato</option>
+            <option>Guerrero</option>
+            <option>Hidalgo</option>
+            <option>Jalisco</option>
+            <option>Michoacán</option>
+            <option>Morelos</option>
+            <option>Nayarit</option>
+            <option>Nuevo León</option>
+            <option>Oaxaca</option>
+            <option>Puebla</option>
+            <option>Querétaro</option>
+            <option>Quintana Roo</option>
+            <option>San Luis Potosí</option>
+            <option>Sinaloa</option>
+            <option>Sonora</option>
+            <option>Tabasco</option>
+            <option>Tamaulipas</option>
+            <option>Tlaxcala</option>
+            <option>Veracruz</option>
+            <option>Yucatán</option>
+            <option>Zacatecas</option>
+          </select>
+        </div>
+
+        <div class="filter-actions">
+          <button class="button" type="submit">Buscar</button>
+          <button class="filter-clear" id="clearFilters" type="button">Limpiar</button>
+        </div>
+      </form>
+
+      <p class="loading-state" id="loadingProperties" role="status" hidden>
+        Cargando propiedades...
+      </p>
+
       <div class="property-grid" id="propertyGrid">
-
-        <!-- CASA 1 -->
-        <article class="property-card" data-operation="venta">
-
-          <div class="property-image-wrap">
-            <img
-              class="property-image"
-              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1100&q=85"
-              alt="Residencia contemporánea con jardín">
-            <span class="property-tag">En venta</span>
-          </div>
-
-          <div class="property-info">
-            <p class="property-location">Ciudad de México, CDMX</p>
-            <h3>Residencia contemporánea</h3>
-
-            <p class="property-description">
-              Arquitectura moderna y espacios amplios para disfrutar.
-            </p>
-
-            <div class="property-bottom">
-              <strong class="property-price">
-                $1,500,000 <small>MXN</small>
-              </strong>
-
-              <a
-                class="text-button"
-                href="recorrido.html?propiedad=residencia">
-                Recorrer casa en 3D ↗
-              </a>
-            </div>
-          </div>
-
-        </article>
-
-        <!-- CASA 2 -->
-        <article class="property-card" data-operation="venta">
-
-          <div class="property-image-wrap">
-            <img
-              class="property-image"
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1100&q=85"
-              alt="Casa moderna con terraza">
-            <span class="property-tag">En venta</span>
-          </div>
-
-          <div class="property-info">
-            <p class="property-location">Guadalajara, Jalisco</p>
-            <h3>Casa con terraza</h3>
-
-            <p class="property-description">
-              Diseño funcional en una ubicación privilegiada.
-            </p>
-
-            <div class="property-bottom">
-              <strong class="property-price">
-                $500,000 <small>MXN</small>
-              </strong>
-
-              <a
-                class="text-button"
-                href="recorrido.html?propiedad=guadalajara">
-                Recorrer casa en 3D ↗
-              </a>
-            </div>
-          </div>
-
-        </article>
-
-        <!-- CASA 3 -->
-        <article class="property-card" data-operation="renta">
-
-          <div class="property-image-wrap">
-            <img
-              class="property-image"
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=85"
-              alt="Interior luminoso de una propiedad">
-            <span class="property-tag property-tag-rent">En renta</span>
-          </div>
-
-          <div class="property-info">
-            <p class="property-location">Pachuca, Hidalgo</p>
-            <h3>Residencia familiar</h3>
-
-            <p class="property-description">
-              Ambientes luminosos y distribución cómoda.
-            </p>
-
-            <div class="property-bottom">
-              <strong class="property-price">
-                $15,000 <small>MXN / mes</small>
-              </strong>
-
-              <a
-                class="text-button"
-                href="recorrido.html?propiedad=pachuca">
-                Recorrer casa en 3D ↗
-              </a>
-            </div>
-          </div>
-
-        </article>
-
         <!-- LAS PROPIEDADES DE AIVEN SE AGREGAN AQUÍ CON SCRIPT.JS -->
 
       </div>
@@ -577,7 +598,7 @@
 
 </body>
 </html>
-=======
+<!-- Rama legacy omitida:
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -669,4 +690,4 @@
 </body>
 
 </html>
->>>>>>> a5c7eff53fd322407eb4ab219252bdd4ac1994fb
+-->

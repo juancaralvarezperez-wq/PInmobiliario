@@ -68,6 +68,7 @@ try {
         "success" => true,
         "message" => "Inicio de sesión exitoso.",
         "usuario" => [
+            "id" => (int) $usuario["id_usuario"],
             "nombre" => $usuario["nombre"],
             "correo" => $usuario["correo"],
             "rol" => $usuario["rol"]
